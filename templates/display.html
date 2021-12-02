@@ -1,0 +1,13 @@
+ {% extends 'base.html' %} 
+ {% block content %}
+
+<h1>Who we are and what we do?</h1>
+All the images and gifs with small tutorials
+<p>Join Us</p>
+
+{{ request.user }}
+
+<a href="{% url 'new_sign' %}"<button class="btn btn-primary">Sign up</button>
+
+ {% endblock %}
+
