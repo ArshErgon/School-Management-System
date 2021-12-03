@@ -31,8 +31,7 @@
             </thead>
             <tbody>
               {% for info in student_information %}
-                {% comment %} <tr onclick="open.window('{% url 'detail' pk=info.pk %}')"> {% endcomment %}
-                  <tr onclick="Atag()">
+                  <tr onclick="Atag();">
                   <th scope="row">{{ info.student_code }}</th>
                   <td>{{ info.fName|capfirst }}</td>
                   <td>{{ info.sName|capfirst }}</td>
@@ -51,10 +50,10 @@
                   <td>{{ info.last_year_percentage }}</td>
                 </tr>
                 <script>
-                  Atag()
+                  function Atag()
                   {
-                    //window.location.assign("google.com")
-                    alert('working')
+                    window.location.assign("{% url 'detail' pk=info.pk %}")
+                    //alert('working')
                   }
                 </script>
               {% endfor %}
