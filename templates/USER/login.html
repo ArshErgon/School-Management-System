@@ -7,11 +7,20 @@
 <div>
     <h3>Welcome Back!</h3>
     <div class="col-sm-6" style="margin:0px auto;">
+      {% if error %}
+        <div class="col-sm-6" style="margin:0px auto;">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{ error }}</strong><br>
+                <em>Or have you <a href="">forgot password?</a></em>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+      {% endif %}
         
         <form action="{% url 'login' %}" method="POST">{% csrf_token %}
             <div class="row g-3 align-items-center">
             <div class="col-md-4">
-              <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+              <label for="exampleInputPhoneNumberUSER" class="form-label">Phone Number</label>
               <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
             </div>
             <div class="col-md-4">

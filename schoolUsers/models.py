@@ -16,6 +16,6 @@ class UserRegistion(models.Model):
     password = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.Fname[:5] + self.insitution
+        return self.Fname
 
 

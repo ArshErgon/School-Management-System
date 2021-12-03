@@ -1,16 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.contrib import auth
 
 from .models import UserRegistion
 
 # Create your views here.
 def SignIn(request):
-    if request.POST:
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+    error_message = str()
+    if request.POST or None:
+        username_user = request.POST.get("username")
+        password_user = request.POST.get("password")
         # user = User.objects.create_user(username, password)
+        USER_AUTHENTICATION = auth.authenticate(username=username_user, password=password_user)
+        # if you found the user in the database
+        if USER_AUTHENTICATION:
+            login(request, USER_AUTHENTICATION)
+            return redirect('/')
+        else:
+            # Else return it with an alert 
+            error_message = "YOU ARE NOT REGISTERED!"
         
-    return render(request, 'USER/login.html')
+
+
+    return render(request, 'USER/login.html', {'error': error_message})
 
 
 def SignUp(request):
