@@ -37,7 +37,7 @@
 
 {% endblock %}
     </body>
-    <footer class="bg-dark text-center text-lg-start text-white">
+    <footer class="bg-dark text-center text-lg-start text-white" id="footer">
       <!-- Copyright -->
       <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); padding-right:100%;">
         Created by ❤️ by <a href="https://in.linkedin.com/in/arsh-ergon" data-toggle="tooltip" title="Magic begans here!" target="_blank">Arsh Ergon</a>
@@ -60,14 +60,14 @@
     width:100%;
 } {% endcomment %}
 
-footer {
+footer #footer{
+  position:fixed;
   bottom: 0;
   color: #707070;
   height: 4em;
   left: 0;
-  position: relative; //changed to relative from fixed also works if position is not there
-  font-size: small;
   width:100%;
+  z-index:0;
 }
 
 

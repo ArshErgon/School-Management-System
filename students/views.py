@@ -17,9 +17,9 @@ def homeView(request):
     school_user = UserRegistion.objects.filter(username=username)
     for i in school_user:
         pass
-    print(i.insitution)
+    # print(i.insitution)
     school_students = Student.objects.filter(insitution=i.insitution)
-    students_12 = school_students.filter(student_present_class='12')
+    students_12 = school_students.filter(student_present_class='12')[:10]
     students_11 = school_students.filter(student_present_class='11')
     students_10 = school_students.filter(student_present_class='10')
     students_9 = school_students.filter(student_present_class='9')
@@ -34,7 +34,7 @@ def homeView(request):
     students_lkg = school_students.filter(student_present_class='LKG')
     students_ukg = school_students.filter(student_present_class='UKG')
     students_nusery = school_students.filter(student_present_class='NUSERY')
-    print(students_ukg)
+    # print(students_ukg)
 
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('students:visitor'))
