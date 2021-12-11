@@ -1,0 +1,122 @@
+{% extends 'base.html'%}
+{% block content%}
+<div class="col-8" style="margin:0px auto;"><br>
+    <h3 style="text-align:center;">Student's Registration</h3>
+    <br>
+    <form class="row g-3" method="POST" action="{% url 'addStudent' %}">{% csrf_token %}
+        <div class="col-sm-2">
+            <label for="inputEmail4" class="form-label">Student Code</label>
+            <input name="sCode" type="text" class="form-control" id="inputEmail4">
+          </div>
+        <div class="col-md-2">
+          <label for="inputEmail4" class="form-label">First Name</label>
+          <input name="fname" type="text" class="form-control" id="inputEmail4">
+        </div>
+        <div class="col-md-2">
+          <label for="inputPassword4" class="form-label">Second Name</label>
+          <input name="sname" type="text" class="form-control" id="inputPassword4">
+        </div>
+        <div class="col-md-2" data-provider="datepicker">
+          <label for="inputPassword4" class="form-label">Date of Birth</label>
+          <input name="dob" type="date" class="form-control" id="inputPassword4">
+        </div><script>$('datepicker')({format:'dd/mm/yy'});</script>
+        <div class="col-md-1">
+          <label for="inputPassword4" class="form-label">Fees</label>
+          <input name="fee" type="text" class="form-control" id="inputPassword4">
+        </div>
+        <div class="col-md-1">
+            <label for="inputState" class="form-label">Class</label>
+            <select name="presentClass" id="inputState" class="form-select">
+              <option selected>class</option>
+              <option value="nry">Nusery</option>
+              <option value="lkg">LKG</option>
+              <option value="ukg">UKG</option>
+              <option value="1">1st</option>
+              <option value="2">2nd</option>
+              <option value="3">3th</option>
+              <option value="4">4th</option>
+              <option value="5">5th</option>
+              <option value="6">6th</option>
+              <option value="7">7th</option>
+              <option value="8">8th</option>
+              <option value="9">9th</option>
+              <option value="10">10th</option>
+              <option value="11">11th</option>
+              <option value="12">12th</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="inputState" class="form-label">State</label>
+            <select id="inputState" class="form-select" >
+              <option selected>Choose...</option>
+              <option value="AN">Andaman and Nicobar Islands</option>
+            </div>
+        <div class="col-md-2">
+          <label for="inputCity" class="form-label">City</label>
+          <input name="city" type="text" class="form-control" id="inputCity">
+        </div>
+          
+        <div class="col-md-2">
+          <label for="inputZip" class="form-label">Father's Name</label>
+          <input name="fatherName" type="text" class="form-control" id="inputZip">
+        </div>
+        <div class="col-md-2">
+            <label for="inputZip" class="form-label">Mother's Name</label>
+            <input name="motherName" type="text" class="form-control" id="inputZip">
+          </div>
+          <div class="col-md-2">
+            <label for="inputZip" class="form-label">Address</label>
+            <input name="address" type="text" class="form-control" id="inputZip">
+          </div>
+        <div class="col-md-2">
+            <label for="inputZip" class="form-label">Phone Number</label>
+            <input name="phone_number" type="text" class="form-control" id="inputZip" maxlength="10" placeholder="+91">
+          </div>
+          <div class="col-md-2">
+            <label for="inputZip" class="form-label">Email</label>
+            <input name="emailfield" type="email" class="form-control" id="inputZip" placeholder="example@gmail.com">
+          </div>
+          <div class="col-md-3">
+            <label for="inputZip" class="form-label">Adhaar</label>
+            <input name="adhaar" type="text" class="form-control" id="inputZip" maxlength="12" >
+          </div>
+          <div class="col-sm-2">
+            <label for="inputState" class="form-label">Religion</label>
+            <select name="religion" id="inputState" class="form-select" >
+              <option selected>Choose...</option>
+              <option value="HINDU">HINDU</option>
+              <option value="MUSLIM">MUSLIM</option>
+              <option value="SIKH">SIKH</option>
+              <option value="ATHEIST">ATHEIST</option>
+              <option value="CHRISTIAN">CHRISTIAN</option>
+            </div>
+            <div class="col-md-2">
+                <label for="inputState" class="form-label">Category</label>
+                <select name="category" class="form-select" >
+                  <option selected>Choose...</option>
+                  <option value="General">General</option>
+                  <option value="OBC">OBC</option>
+                  <option value="ST">ST</option>
+                  <option value="SC">SC</option>
+                </div>
+            <div class="col-md-2">
+                <label for="inputZip" class="form-label">Caste</label>
+                <input name="caste" type="text" class="form-control" id="inputZip" maxlength="12" >
+              </div>
+            
+              <div class="col-md-3">
+                <label for="inputZip" class="form-label">Relatives in school</label>
+                <input name="relatives_in_school" type="text" class="form-control" id="inputZip" maxlength="12" >
+              </div>
+              <div class="col-md-3">
+                <label for="inputZip" class="form-label">RTE Student</label>
+              <input name="rte" class="form-check-input" type="checkbox" id="inlineFormCheck">
+              </div>
+        <div class="col-12">
+          <center><button type="submit" class="btn btn-primary">Add</button></center>
+        </div>
+      </form>
+<div>
+
+
+{% endblock %}

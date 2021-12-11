@@ -1,5 +1,8 @@
 from django.db import models
 
+
+from schoolUsers.models import UserRegistion
+
 STUDENT_CLASS = [
     ('Nusery','nry'),
     ('LKG', 'lkg'),
@@ -36,6 +39,7 @@ CATEGORY = [
 
 # Create your models here.
 class Student(models.Model):
+    insitution = models.ForeignKey(UserRegistion, on_delete=models.CASCADE)
     student_code = models.IntegerField()
     fName = models.CharField(max_length=50)
     sName = models.CharField(max_length=50)
@@ -45,11 +49,15 @@ class Student(models.Model):
     DOB = models.DateField()
     student_present_class = models.CharField(max_length=10, choices=STUDENT_CLASS, default='Nusery')
     address = models.CharField(max_length=50)
+    state = models.CharField(max_length=20, default='.')
+    city = models.CharField(max_length=50, default='.')
     phoneNumber = models.IntegerField()
+    email = models.EmailField()
+    adhaar = models.IntegerField(default=12345)
     religion = models.CharField(max_length=10, choices=RELIGION)
     caste = models.CharField(max_length=10)
     category = models.CharField(max_length=10, choices=CATEGORY)
-    last_year_percentage = models.CharField(max_length=3)
+    last_year_percentage = models.CharField(max_length=3, default=0)
     rte_student = models.BooleanField()
     relatives_in_school = models.CharField(max_length=50)
 

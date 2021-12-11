@@ -61,3 +61,5 @@ def SignUp(request):
 
 
     return render(request, 'USER/signUp.html')
+
+

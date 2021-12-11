@@ -2,6 +2,7 @@
 {% block content %}
 
 <div class="top_school_name"><h1>Peach Grove Jr High School</h1></div>
+<a href="{% url "logout" %}" style="all:unset;"><h6>Log Out</h6></a>
 
 <div class="col-md-11" style="margin:1px auto;">
     <h6>Welcome {{ request.user|capfirst }} of InsitutionName:</h6>
