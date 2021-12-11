@@ -5,21 +5,21 @@ from django.urls import reverse
 from schoolUsers.models import UserRegistion
 
 STUDENT_CLASS = [
-    ('Nusery','nry'),
-    ('LKG', 'lkg'),
-    ('UKG', 'ukg'),
-    ('1st', '1'),
-    ('2nd', '2'),
-    ('3rd', '3'),
-    ('4th', '4'),
-    ('5th', '5'),
-    ('6th', '6'),
-    ('7th', '7'),
-    ('8th', '8'),
-    ('9th', '9'),
-    ('10th', '10'),
-    ('11th', '11'),
-    ('12th', '12'),
+    ('NUSERY','NUSERY'),
+    ('LKG', 'LKG'),
+    ('UKG', 'UKG'),
+    ('1', '1'),
+    ('2', '2'),
+    ('3', '3'),
+    ('4', '4'),
+    ('5', '5'),
+    ('6', '6'),
+    ('7', '7'),
+    ('8', '8'),
+    ('9', '9'),
+    ('10', '10'),
+    ('11', '11'),
+    ('12', '12'),
 ]
 
 RELIGION = [

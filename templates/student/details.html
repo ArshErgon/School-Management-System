@@ -33,9 +33,17 @@
             <label class="form-label">Present Class</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.student_present_class|capfirst }}" disabled>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label class="form-label">Address</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.address|capfirst }}" disabled>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">State</label>
+            <input id="input_hidden" type="text" class="form-control" value="{{ student.state|capfirst }}" disabled>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">City</label>
+            <input id="input_hidden" type="text" class="form-control" value="{{ student.city|capfirst }}" disabled>
         </div>
         <div class="col-md-3">
             <label class="form-label">Phone Number</label>

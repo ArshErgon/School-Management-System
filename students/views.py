@@ -14,13 +14,58 @@ from .models import Student
 def homeView(request):
     username = request.user.username
     all_student = len(Student.objects.all())
-    school = UserRegistion.objects.filter(username=username)
-    for i in school:
+    school_user = UserRegistion.objects.filter(username=username)
+    for i in school_user:
         pass
+    print(i.insitution)
+    school_students = Student.objects.filter(insitution=i.insitution)
+    students_12 = school_students.filter(student_present_class='12')
+    students_11 = school_students.filter(student_present_class='11')
+    students_10 = school_students.filter(student_present_class='10')
+    students_9 = school_students.filter(student_present_class='9')
+    students_8 = school_students.filter(student_present_class='8')
+    students_7 = school_students.filter(student_present_class='7')
+    students_6 = school_students.filter(student_present_class='6')
+    students_5 = school_students.filter(student_present_class='5')
+    students_4 = school_students.filter(student_present_class='4')
+    students_3 = school_students.filter(student_present_class='3')
+    students_2 = school_students.filter(student_present_class='2')
+    students_1 = school_students.filter(student_present_class='1')
+    students_lkg = school_students.filter(student_present_class='LKG')
+    students_ukg = school_students.filter(student_present_class='UKG')
+    students_nusery = school_students.filter(student_present_class='NUSERY')
+    print(students_ukg)
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('students:visitor'))
      
-    return render(request, 'index.html', {'student_information':Student.objects.all(), 'i':i, 'all_student':all_student})
+    return render(request, 'index.html', {'student_information':Student.objects.all(), 'i':i, 'all_student':all_student, 'school_user':school_user
+    ,'students_12':students_12, 
+    'students_11':students_11, 
+    'students_10':students_10, 
+    'students_9':students_9 ,
+    'students_8':students_8, 
+    'students_7':students_7,
+    'students_6':students_6,
+    'students_5':students_5,
+    'students_4':students_4,
+    'students_3':students_3,
+    'students_2':students_2,
+    'students_1':students_1,
+    'students_lkg':students_lkg,
+    'students_ukg':students_ukg,
+    'students_nusery':students_nusery,
+    })
+
+
+def all_student_display(request):
+    username = request.user.username
+    all_student = len(Student.objects.all())
+    school = UserRegistion.objects.filter(username=username)
+    for i in school:
+        pass
+    return render(request, 'student/all_student.html', {'student_information':Student.objects.all(), 'i':i, 'all_student':all_student})
+
 
 
 def notAuthenticUser(request):
@@ -110,5 +155,5 @@ def addStudent(request):
         else:
             rte_ = False
         Student.objects.create(insitution=insitution, student_code=student_code, fName = fName, sName = sName, fatherName = FatherName, motherName = MotherName, fee = fee, DOB = DOB,  student_present_class=presentClass, address = address, phoneNumber = phoneNumber, email=email, adhaar= adhaar, religion=religion, caste=caste, category=category, rte_student=rte_, relatives_in_school=relatives_in_school, state=str(state).replace('_', ' '), city=city)
-        return redirect('/')        
+        return redirect('students:index')        
     return render(request, 'student/addingstudent.html', {'i':i})
