@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h4>Date: {{ dateInfo }}</h4>
+<h4 style="margin: 30px auto; text-align: center;">Date: {{ dateInfo }}</h4>
 <div class="col-md-11" style="margin:0px auto;">
 <div class="col-md-11" style="margin:0px auto;">
     <form class="row g-3" method="POST">{% csrf_token %}
@@ -74,5 +74,13 @@
 </div>
     
 </div>
+
+
+<div class="col-md-2" style="margin: 0px auto; margin-top:5%;">
+    <a href="{% url 'students:editStudent' pk=student.id  %}"><button class="btn btn-primary">Edit profile</button></a>
+    <a href="{% url 'students:deleteStudent' pk=student.id %}"><button<button class="btn btn-danger" style="float: right;">Delete profile</button></a>
+</div>
+
+
 
 {% endblock %}

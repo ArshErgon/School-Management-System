@@ -1,18 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="top_school_name"><h1>Peach Grove Jr High School</h1></div>
-<a href="{% url "logout" %}" style="all:unset;"><h6>Log Out</h6></a>
-
+<div class="top_school_name" style="margin-top: 10px;"><h2>{{ i.insitution|title }}</h2></div>
 <div class="col-md-11" style="margin:1px auto;">
-    <h6>Welcome {{ request.user|capfirst }} of InsitutionName:</h6>
+    <h6>Welcome {{ request.user|title }}</h6><a href="{% url "logout" %}" style="all:unset;"><button class="btn btn-danger" style="float:right;">Log Out</button></a><br>
+    <a href="{% url 'students:addStudent' %}"><button class="btn btn-primary">Add student</button></a>
+    <div style="margin:0 auto; text-align:center;"><h5>Total students:<span style="color:red">{{ all_student }}</span></h5></div>
     <div class="col-md-12" style=";margin:1px auto;">
         <table class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">SNo</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
+                <th scope="col">Name</th>
                 <th scope="col">Class</th>
                 <th scope="col">Father's Name</th>
                 <th scope="col">Mother's Name</th>
@@ -23,9 +22,6 @@
                 <th scope="col">Religion</th>           
                 <th scope="col">Caste</th>
                 <th scope="col">Category</th>
-                <th scope="col">Relatives in Insitution</th>
-                <th scope="col">Address</th>
-                <th scope="col">Last year %</th>
 
 
               </tr>
@@ -34,9 +30,8 @@
               {% for info in student_information %}
                   <tr onclick="Atag();">
                   <th scope="row">{{ info.student_code }}</th>
-                  <td>{{ info.fName|capfirst }}</td>
-                  <td>{{ info.sName|capfirst }}</td>
-                  <td>{{ info.student_present_class }}</td>
+                  <td>{{ info.fName|capfirst }} {{ info.sName|capfirst }}</td>
+                  <td>{{ info.student_present_class|capfirst }}</td>
                   <td>{{ info.fatherName|capfirst }}</td>
                   <td>{{ info.motherName|capfirst }}</td>
                   <td>{{ info.fee }}</td>
@@ -46,14 +41,11 @@
                   <td>{{ info.religion }}</td>
                   <td>{{ info.caste|capfirst  }}</td>
                   <td>{{ info.category }}</td>
-                  <td>{{ info.relatives_in_school|capfirst  }}</td>
-                  <td>{{ info.address|capfirst  }}</td>
-                  <td>{{ info.last_year_percentage }}</td>
                 </tr>
                 <script>
                   function Atag()
                   {
-                    window.location.assign("{% url 'detail' pk=info.pk %}")
+                    window.location.assign("{{ info.get_absolute_url }}")
                     //alert('working')
                   }
                 </script>
@@ -68,7 +60,7 @@
 .top_school_name {
     margin: 0px auto;
     text-align: center;
-    color: red;
+    color:black;
 
 }
 </style>

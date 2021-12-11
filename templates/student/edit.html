@@ -1,33 +1,33 @@
-{% extends 'base.html'%}
-{% block content%}
+{% extends 'base.html' %}
+{% block content %}
 <div class="col-8" style="margin:0px auto;"><br>
-    <h3 style="text-align:center;">Student's Registration</h3>
+    <h3 style="text-align:center;">Student Update</h3>
     <br>
-    <form class="row g-3" method="POST" action="{% url 'students:addStudent' %}">{% csrf_token %}
+    <form class="row g-3" method="POST" action="">{% csrf_token %}
         <div class="col-sm-2">
             <label for="inputEmail4" class="form-label">Student Code</label>
-            <input name="sCode" type="text" class="form-control" id="inputEmail4" required>
+            <input name="sCode" type="text" class="form-control" id="inputEmail4" value="{{ student.student_code }}">
           </div>
         <div class="col-md-2">
           <label for="inputEmail4" class="form-label">First Name</label>
-          <input name="fname" type="text" class="form-control" id="inputEmail4"required>
+          <input name="fname" type="text" class="form-control" id="inputEmail4" value="{{ student.fName|capfirst }}">
         </div>
         <div class="col-md-2">
           <label for="inputPassword4" class="form-label">Second Name</label>
-          <input name="sname" type="text" class="form-control" id="inputPassword4"required>
+          <input name="sname" type="text" class="form-control" id="inputPassword4" value="{{ student.sName|capfirst }}">
         </div>
         <div class="col-md-2" data-provider="datepicker">
           <label for="inputPassword4" class="form-label">Date of Birth</label>
-          <input name="dob" type="date" class="form-control" id="inputPassword4"required>
+          <input name="dob" type="date" class="form-control" id="inputPassword4" value="{{ student.DOB|capfirst }}">
         </div><script>$('datepicker')({format:'dd/mm/yy'});</script>
         <div class="col-md-1">
           <label for="inputPassword4" class="form-label">Fees</label>
-          <input name="fee" type="text" class="form-control" id="inputPassword4"required>
+          <input name="fee" type="text" class="form-control" id="inputPassword4" value="{{ student.fee }}">
         </div>
         <div class="col-md-1">
             <label for="inputState" class="form-label">Class</label>
-            <select name="presentClass" id="inputState" class="form-select"required>
-              <option selected>class</option>
+            <select name="presentClass" id="inputState" class="form-select">
+              <option selected>{{ student.student_present_class }}</option>
               <option value="nry">Nusery</option>
               <option value="lkg">LKG</option>
               <option value="ukg">UKG</option>
@@ -47,43 +47,43 @@
           </div>
           <div class="col-md-3">
             <label for="inputState" class="form-label">State</label>
-            <select name="state" id="inputState" class="form-select" required>
-              <option selected>Choose...</option>
+            <select name="state" id="inputState" class="form-select">
+              <option selected>{{ student.state }}</option>
               <option value="Andaman_and_Nicobar_Islands">Andaman and Nicobar Islands</option>
             </div>
         <div class="col-md-2">
           <label for="inputCity" class="form-label">City</label>
-          <input name="city" type="text" class="form-control" id="inputCity" required>
+          <input name="city" type="text" class="form-control" id="inputCity" value="{{ student.city|capfirst }}">
         </div>
           
         <div class="col-md-2">
           <label for="inputZip" class="form-label">Father's Name</label>
-          <input name="fatherName" type="text" class="form-control" id="inputZip" required>
+          <input name="fatherName" type="text" class="form-control" id="inputZip" value="{{ student.fatherName|capfirst }}">
         </div>
         <div class="col-md-2">
             <label for="inputZip" class="form-label">Mother's Name</label>
-            <input name="motherName" type="text" class="form-control" id="inputZip"required>
+            <input name="motherName" type="text" class="form-control" id="inputZip" value="{{ student.motherName|capfirst }}">
           </div>
           <div class="col-md-2">
             <label for="inputZip" class="form-label">Address</label>
-            <input name="address" type="text" class="form-control" id="inputZip"required>
+            <input name="address" type="text" class="form-control" id="inputZip" value="{{ student.address|title }}">
           </div>
         <div class="col-md-2">
             <label for="inputZip" class="form-label">Phone Number</label>
-            <input name="phone_number" type="text" class="form-control" id="inputZip" maxlength="10" placeholder="+91"required>
+            <input name="phone_number" type="text" class="form-control" id="inputZip" maxlength="10" placeholder="+91"  value="{{ student.phoneNumber }}">
           </div>
           <div class="col-md-2">
             <label for="inputZip" class="form-label">Email</label>
-            <input name="emailfield" type="email" class="form-control" id="inputZip" placeholder="example@gmail.com"required>
+            <input name="emailfield" type="email" class="form-control" id="inputZip" placeholder="example@gmail.com"  value="{{ student.email }}">
           </div>
           <div class="col-md-3">
             <label for="inputZip" class="form-label">Adhaar</label>
-            <input name="adhaar" type="text" class="form-control" id="inputZip" maxlength="12" required>
+            <input name="adhaar" type="text" class="form-control" id="inputZip" maxlength="12"  value="{{ student.adhaar }}">
           </div>
           <div class="col-sm-2">
             <label for="inputState" class="form-label">Religion</label>
-            <select name="religion" id="inputState" class="form-select" required>
-              <option selected>Choose...</option>
+            <select name="religion" id="inputState" class="form-select">
+              <option selected>{{ student.religion }}</option>
               <option value="HINDU">HINDU</option>
               <option value="MUSLIM">MUSLIM</option>
               <option value="SIKH">SIKH</option>
@@ -92,8 +92,8 @@
             </div>
             <div class="col-md-2">
                 <label for="inputState" class="form-label">Category</label>
-                <select name="category" class="form-select" required>
-                  <option selected>Choose...</option>
+                <select name="category" class="form-select">
+                  <option selected>{{ student.category }}</option>
                   <option value="General">General</option>
                   <option value="OBC">OBC</option>
                   <option value="ST">ST</option>
@@ -101,22 +101,21 @@
                 </div>
             <div class="col-md-2">
                 <label for="inputZip" class="form-label">Caste</label>
-                <input name="caste" type="text" class="form-control" id="inputZip" maxlength="12" required>
+                <input name="caste" type="text" class="form-control" id="inputZip" maxlength="12"  value="{{ student.caste }}">
               </div>
             
               <div class="col-md-3">
                 <label for="inputZip" class="form-label">Relatives in school</label>
-                <input name="relatives" type="text" class="form-control" id="inputZip" maxlength="12" required>
+                <input name="relatives" type="text" class="form-control" id="inputZip" maxlength="12"  value="{{ student.relatives_in_school }}">
               </div>
               <div class="col-md-3">
                 <label for="inputZip" class="form-label">RTE Student</label>
-              <input name="rte" class="form-check-input" type="checkbox" id="inlineFormCheck"required>
+              <input name="rte" class="form-check-input" type="checkbox" id="inlineFormCheck" required>
               </div>
         <div class="col-12">
-          <center><button type="submit" class="btn btn-primary">Add</button></center>
+          <a href="{% url 'students:editStudent' pk=student.id %}"><center><button type="submit" class="btn btn-primary">Update</button></center></a>
         </div>
       </form>
 <div>
-
 
 {% endblock %}

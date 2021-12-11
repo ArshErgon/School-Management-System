@@ -1,5 +1,6 @@
 from django.db import models
 
+from django.urls import reverse
 
 from schoolUsers.models import UserRegistion
 
@@ -39,7 +40,7 @@ CATEGORY = [
 
 # Create your models here.
 class Student(models.Model):
-    insitution = models.ForeignKey(UserRegistion, on_delete=models.CASCADE)
+    insitution = models.CharField(max_length=50)
     student_code = models.IntegerField()
     fName = models.CharField(max_length=50)
     sName = models.CharField(max_length=50)
@@ -49,7 +50,7 @@ class Student(models.Model):
     DOB = models.DateField()
     student_present_class = models.CharField(max_length=10, choices=STUDENT_CLASS, default='Nusery')
     address = models.CharField(max_length=50)
-    state = models.CharField(max_length=20, default='.')
+    state = models.CharField(max_length=30, default='.')
     city = models.CharField(max_length=50, default='.')
     phoneNumber = models.IntegerField()
     email = models.EmailField()
@@ -60,7 +61,17 @@ class Student(models.Model):
     last_year_percentage = models.CharField(max_length=3, default=0)
     rte_student = models.BooleanField()
     relatives_in_school = models.CharField(max_length=50)
-
+    slugfield = models.CharField(max_length=100, blank=True, null=True, default=None)
 
     def __str__(self):
         return str(self.student_code)
+
+
+    def save(self, *args, **kwargs):
+        if self.fName and self.sName and self.student_present_class:
+            self.slugfield = str(self.fName).title() + '/' + str(self.sName).title() + '/' + str(self.student_present_class)
+        super(Student, self).save(*args, **kwargs)
+
+    
+    def get_absolute_url(self):
+        return reverse('students:detail', args=[self.id])
