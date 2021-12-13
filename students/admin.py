@@ -5,6 +5,6 @@ from django.contrib import admin
 from .models import Student
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('insitution', 'fName','student_present_class')
+    list_display = ('student_code', 'insitution', 'fName', 'sName','student_present_class')
 
 admin.site.register(Student, StudentAdmin)

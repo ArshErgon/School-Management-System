@@ -2,7 +2,6 @@ from django.db import models
 
 from django.urls import reverse
 
-from schoolUsers.models import UserRegistion
 
 STUDENT_CLASS = [
     ('NUSERY','NUSERY'),

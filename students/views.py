@@ -2,6 +2,8 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
+from django.db.models import Q as q
+
 import datetime
 
 from schoolUsers.models import UserRegistion
@@ -12,33 +14,34 @@ from .models import Student
 # Create your views here.
 
 def homeView(request):
-    username = request.user.username
-    all_student = len(Student.objects.all())
-    school_user = UserRegistion.objects.filter(username=username)
-    for i in school_user:
-        pass
-    # print(i.insitution)
-    school_students = Student.objects.filter(insitution=i.insitution)
-    students_12 = school_students.filter(student_present_class='12')[:10]
-    students_11 = school_students.filter(student_present_class='11')
-    students_10 = school_students.filter(student_present_class='10')
-    students_9 = school_students.filter(student_present_class='9')
-    students_8 = school_students.filter(student_present_class='8')
-    students_7 = school_students.filter(student_present_class='7')
-    students_6 = school_students.filter(student_present_class='6')
-    students_5 = school_students.filter(student_present_class='5')
-    students_4 = school_students.filter(student_present_class='4')
-    students_3 = school_students.filter(student_present_class='3')
-    students_2 = school_students.filter(student_present_class='2')
-    students_1 = school_students.filter(student_present_class='1')
-    students_lkg = school_students.filter(student_present_class='LKG')
-    students_ukg = school_students.filter(student_present_class='UKG')
-    students_nusery = school_students.filter(student_present_class='NUSERY')
-    # print(students_ukg)
-
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('students:visitor'))
-     
+    else:
+    
+        username = request.user.username
+    all_student = len(Student.objects.all())
+    school_user = UserRegistion.objects.filter(username=username)
+        
+    for i in school_user:
+        pass
+        school_students = Student.objects.filter(insitution=i.insitution)
+        students_12 = school_students.filter(student_present_class='12')[:10]
+        students_11 = school_students.filter(student_present_class='11')
+        students_10 = school_students.filter(student_present_class='10')
+        students_9 = school_students.filter(student_present_class='9')
+        students_8 = school_students.filter(student_present_class='8')
+        students_7 = school_students.filter(student_present_class='7')
+        students_6 = school_students.filter(student_present_class='6')
+        students_5 = school_students.filter(student_present_class='5')
+        students_4 = school_students.filter(student_present_class='4')
+        students_3 = school_students.filter(student_present_class='3')
+        students_2 = school_students.filter(student_present_class='2')
+        students_1 = school_students.filter(student_present_class='1')
+        students_lkg = school_students.filter(student_present_class='LKG')
+        students_ukg = school_students.filter(student_present_class='UKG')
+        students_nusery = school_students.filter(student_present_class='NUSERY')
+
+    
     return render(request, 'index.html', {'student_information':Student.objects.all(), 'i':i, 'all_student':all_student, 'school_user':school_user
     ,'students_12':students_12, 
     'students_11':students_11, 
@@ -96,11 +99,11 @@ def editStudent(request, pk):
         post_edit.fName = add_info("fname")
         post_edit.sName = add_info("sname")
         post_edit.student_code = add_info("sCode")
-        post_edit.FatherName = add_info("fatherName")
-        post_edit.MotherName = add_info("motherName")
+        post_edit.fatherName = add_info("fatherName")
+        post_edit.motherName = add_info("motherName")
         post_edit.fee = add_info("fee")
         post_edit.DOB = add_info("dob")
-        post_edit.presentClass = add_info("presentClass")
+        post_edit.student_present_class = add_info("presentClass")
         post_edit.address = add_info("address")
         post_edit.state = add_info("state")
         post_edit.city = add_info("city")
@@ -109,15 +112,15 @@ def editStudent(request, pk):
         post_edit.religion = add_info("religion")
         post_edit.caste = add_info("caste")
         post_edit.category = add_info("category")
-        post_edit.rte_student = add_info("rte")
+        rte = add_info("rte")
         post_edit.relatives_in_school = add_info("relatives")
         post_edit.email = add_info("emailfield")
-        if post_edit.rte_student == "on":
+        if rte == "on":
             rte_ = True
         else:
             rte_ = False
         post_edit.rte_student = rte_
-        post_edit.save()
+        post_edit.save_base()
         return redirect('/')
     return render(request, 'student/edit.html', {'student':showing_student_to_edit})
 
@@ -157,3 +160,60 @@ def addStudent(request):
         Student.objects.create(insitution=insitution, student_code=student_code, fName = fName, sName = sName, fatherName = FatherName, motherName = MotherName, fee = fee, DOB = DOB,  student_present_class=presentClass, address = address, phoneNumber = phoneNumber, email=email, adhaar= adhaar, religion=religion, caste=caste, category=category, rte_student=rte_, relatives_in_school=relatives_in_school, state=str(state).replace('_', ' '), city=city)
         return redirect('students:index')        
     return render(request, 'student/addingstudent.html', {'i':i})
+
+
+def searchStudent(request):
+    school_user = UserRegistion.objects.get(user=request.user)
+    school_student = Student.objects.filter(insitution=school_user)
+    if request.method == 'POST':
+        GET_DATA  = request.POST.get
+        student_code = GET_DATA('sCode')
+        fname = GET_DATA('fname')
+        sname = GET_DATA('sname')
+        student_class = GET_DATA('presentClass')
+        state = GET_DATA('state')
+        city = GET_DATA('city')
+        fathername = GET_DATA('fatherName')
+        religion = GET_DATA('religion')
+        category = GET_DATA('category')
+        rte_student =  GET_DATA('rte')
+        last_result = "NOT FOUND!"
+        
+        # if student_code:
+        #     last_result = school_student.filter(student_code=student_code)
+        # if fname:
+        #     last_result = school_student.filter(fName=fname)
+        # if sname:
+        #     last_result = school_student.filter(sName=sname)
+        # if student_class:
+        #     last_result = school_student.filter(student_present_class=student_class)
+        # if state:
+        #     last_result = school_student.filter(state=state)
+        # if city:
+        #     last_result = school_student.filter(city=city)
+        # if fathername:
+        #     last_result = school_student.filter(fatherName=fathername)
+        # if religion:
+        #     last_result = school_student.filter(religion=religion)
+        # if category:
+        #     last_result = school_student.filter(category=category)
+        # if rte_student == 'on':
+        #     last_result = school_student.filter(rte_student=True)
+        # else:
+        #     last_result = school_student.filter(rte_student=False)
+        # last_result = q(student_code_icontains=student_code)
+
+        last_result = school_student.filter(q(student_code__icontains=student_code) 
+        or q(fName__icontains=fname) 
+        or q(sName__icontains=sname) 
+        or q(student_present_class__icontains=student_class) 
+        or q(state__icontains=state) 
+        or q(city__icontains=city) 
+        or q(fatherName__icontains=fathername) 
+        or q(religion__icontains=religion) 
+        or q(category__icontains=category))
+
+        print(last_result, 'last_result')
+        # return render(request, 'student/searchStudent.html', {'last_result': last_result})
+
+    return render(request, 'student/searchStudent.html')

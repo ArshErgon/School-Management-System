@@ -6,73 +6,95 @@
 <div class="col-md-11" style="margin:0px auto;">
     <form class="row g-3" method="POST">{% csrf_token %}
         <div class="col-md-2">
+            <label class="form-label">Student Code</label>
+            <input id="input_hidden" type="text" class="form-control" value="{{ student.student_code|capfirst }}" disabled>
+          </div>
+
+        <div class="col-md-2">
           <label class="form-label">First Name</label>
           <input id="input_hidden" type="text" class="form-control" value="{{ student.fName|capfirst }}" disabled>
         </div>
+
         <div class="col-md-2">
           <label class="form-label">Second Name</label>
           <input id="input_hidden" type="text" class="form-control" value="{{ student.sName|capfirst }}" disabled>
         </div>
+
         <div class="col-md-2">
           <label class="form-label">Father's Name</label>
           <input id="input_hidden" type="text" class="form-control" value="{{ student.fatherName|capfirst }}" disabled>
         </div>
+
         <div class="col-md-2">
           <label class="form-label">Mother's Name</label>
           <input id="input_hidden" type="text" class="form-control" value="{{ student.motherName|capfirst }}" disabled>
         </div>
+
         <div class="col-md-2">
             <label class="form-label">FEE</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.fee|capfirst }}" disabled>
         </div>
+
         <div class="col-md-2">
         <label class="form-label">DOB</label>
         <input id="input_hidden" type="text" class="form-control" value="{{ student.DOB|capfirst }}" disabled>
         </div>  
+        
         <div class="col-sm-1">
             <label class="form-label">Present Class</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.student_present_class|capfirst }}" disabled>
         </div>
+
         <div class="col-md-3">
             <label class="form-label">Address</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.address|capfirst }}" disabled>
         </div>
+
         <div class="col-md-3">
             <label class="form-label">State</label>
-            <input id="input_hidden" type="text" class="form-control" value="{{ student.state|capfirst }}" disabled>
+            <input id="input_hidden" type="text" class="form-control" value="{{ student.state|title }}" disabled>
         </div>
+
         <div class="col-md-3">
             <label class="form-label">City</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.city|capfirst }}" disabled>
         </div>
+
         <div class="col-md-3">
             <label class="form-label">Phone Number</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.phoneNumber|capfirst }}" disabled>
         </div>
+
         <div class="col-md-3">
             <label class="form-label">Adhaar</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.adhaar|capfirst }}" disabled>
         </div>
+
         <div class="col-md-2">
             <label class="form-label">Religion</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.religion|capfirst }}" disabled>
         </div>
+
         <div class="col-md-2">
             <label class="form-label">Caste</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.caste|capfirst }}" disabled>
         </div>
+
         <div class="col-md-2">
             <label class="form-label">Category</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.category|capfirst }}" disabled>
         </div>
+
         <div class="col-md-2">
             <label class="form-label">Last Year %</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.last_year_percentage|capfirst }}" disabled>
         </div>
+
         <div class="col-md-2">
             <label class="form-label">RTE student</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.rte_student|capfirst }}" disabled>
         </div>
+
         <div class="col-md-2">
             <label class="form-label">Relatives in School</label>
             <input id="input_hidden" type="text" class="form-control" value="{{ student.relatives_in_school|capfirst }}" disabled>
@@ -82,7 +104,7 @@
 </div>
     
 </div>
-
+</div>
 
 <div class="col-md-2" style="margin: 0px auto; margin-top:5%;">
     <a href="{% url 'students:editStudent' pk=student.id  %}"><button class="btn btn-primary">Edit profile</button></a>
@@ -90,5 +112,5 @@
 </div>
 
 
-
+<br><br><br>
 {% endblock %}

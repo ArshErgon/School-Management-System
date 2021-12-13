@@ -13,4 +13,5 @@ urlpatterns = [
      path('student:detail:id:<int:pk>/', views.detailsView, name='detail'),
      path("deleting/student:id:<int:pk>/", views.deleteStudent, name='deleteStudent'),
      path('updating/student/id:<int:pk>/', views.editStudent, name='editStudent'),
+     path("student/seach/with:", views.searchStudent, name='searchStudent'),
 ]

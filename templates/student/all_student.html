@@ -31,8 +31,19 @@
             </thead>
             <tbody>
               {% for info in student_information %}
-                  <tr onclick="Atag();">
+             
+                <script>
+                  function Atag()
+                  {
+                    // window.location.assign("{{ info.get_absolute_url }}");
+                    //window.location.assign("{% url 'students:detail'  pk=info.pk %}");
+                    alert({{ info.pk }})
+                  }
+
+                </script>
+                <tr onclick="window.location='{{ info.get_absolute_url }}'">
                   <th scope="row">{{ info.student_code }}</th>
+                  <a href="{% url 'students:detail' pk=info.pk %}">
                   <td>{{ info.fName|capfirst }} {{ info.sName|capfirst }}</td>
                   <td>{{ info.student_present_class|capfirst }}</td>
                   <td>{{ info.fatherName|capfirst }}</td>
@@ -45,16 +56,10 @@
                   <td>{{ info.caste|capfirst  }}</td>
                   <td>{{ info.category }}</td>
                 </tr>
-                <script>
-                  function Atag()
-                  {
-                    window.location.assign("{{ info.get_absolute_url }}")
-                    //alert('working')
-                  }
-                </script>
+              </a>
+                
               {% endfor %}
             </tbody>
-
         </table>
     </div>
 </div>
