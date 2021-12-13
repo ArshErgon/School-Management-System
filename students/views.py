@@ -18,10 +18,12 @@ def homeView(request):
         return HttpResponseRedirect(reverse('students:visitor'))
     else:
     
-        username = request.user.username
-    all_student = len(Student.objects.all())
-    school_user = UserRegistion.objects.filter(username=username)
-        
+        username = request.user.id
+        print(username)
+        all_student = len(Student.objects.all())
+        school_user = UserRegistion.objects.filter(username=username)
+        print(school_user.filter(username=username),'user')
+    
     for i in school_user:
         pass
         school_students = Student.objects.filter(insitution=i.insitution)
@@ -40,9 +42,7 @@ def homeView(request):
         students_lkg = school_students.filter(student_present_class='LKG')
         students_ukg = school_students.filter(student_present_class='UKG')
         students_nusery = school_students.filter(student_present_class='NUSERY')
-
-    
-    return render(request, 'index.html', {'student_information':Student.objects.all(), 'i':i, 'all_student':all_student, 'school_user':school_user
+        return render(request, 'index.html', {'student_information':Student.objects.all(), 'i':i, 'all_student':all_student, 'school_user':school_user
     ,'students_12':students_12, 
     'students_11':students_11, 
     'students_10':students_10, 
@@ -59,15 +59,17 @@ def homeView(request):
     'students_ukg':students_ukg,
     'students_nusery':students_nusery,
     })
+    return render(request, 'index.html')
 
 
 def all_student_display(request):
-    username = request.user.username
+    username = request.user.id
     all_student = len(Student.objects.all())
     school = UserRegistion.objects.filter(username=username)
     for i in school:
         pass
-    return render(request, 'student/all_student.html', {'student_information':Student.objects.all(), 'i':i, 'all_student':all_student})
+        return render(request, 'student/all_student.html', {'student_information':Student.objects.all(), 'i':i, 'all_student':all_student})
+    return render(request, 'student/all_student.html')
 
 
 
@@ -81,8 +83,8 @@ def detailsView(request, pk):
     for i in Student.objects.filter(pk=pk):
         pass
 
-    return render(request, 'student/details.html', {'dateInfo':dateInfo, 'student':i})
-
+        return render(request, 'student/details.html', {'dateInfo':dateInfo, 'student':i})
+    return render(request, 'student/details.html')
 
 # redirect to the request again.
 def deleteStudent(request, pk):
@@ -126,94 +128,81 @@ def editStudent(request, pk):
 
 
 def addStudent(request):
-    username = request.user.username
+    username = request.user.id
+    print(username)
     school = UserRegistion.objects.filter(username=username)
-    for i in school:
-        pass
+    print(school, 'school')
 
-    if request.method == 'POST':
-        add_info = request.POST.get
-        insitution = i.insitution
-        fName = add_info("fname")
-        sName = add_info("sname")
-        student_code = add_info("sCode")
-        FatherName = add_info("fatherName")
-        MotherName = add_info("motherName")
-        fee = add_info("fee")
-        DOB = add_info("dob")
-        presentClass = add_info("presentClass")
-        address = add_info("address")
-        state = add_info("state")
-        city = add_info("city")
-        phoneNumber = add_info("phone_number")
-        adhaar = add_info("adhaar")
-        religion = add_info("religion")
-        caste = add_info("caste")
-        category = add_info("category")
-        rte_student = add_info("rte")
-        relatives_in_school = add_info("relatives")
-        email = add_info("emailfield")
-        if rte_student == "on":
-            rte_ = True
-        else:
-            rte_ = False
-        Student.objects.create(insitution=insitution, student_code=student_code, fName = fName, sName = sName, fatherName = FatherName, motherName = MotherName, fee = fee, DOB = DOB,  student_present_class=presentClass, address = address, phoneNumber = phoneNumber, email=email, adhaar= adhaar, religion=religion, caste=caste, category=category, rte_student=rte_, relatives_in_school=relatives_in_school, state=str(state).replace('_', ' '), city=city)
-        return redirect('students:index')        
-    return render(request, 'student/addingstudent.html', {'i':i})
+    # for i in school:
+    #     pass
+
+    # if request.method == 'POST':
+    #     add_info = request.POST.get
+    #     insitution = i.insitution
+    #     fName = add_info("fname")
+    #     sName = add_info("sname")
+    #     student_code = add_info("sCode")
+    #     FatherName = add_info("fatherName")
+    #     MotherName = add_info("motherName")
+    #     fee = add_info("fee")
+    #     DOB = add_info("dob")
+    #     presentClass = add_info("presentClass")
+    #     address = add_info("address")
+    #     state = add_info("state")
+    #     city = add_info("city")
+    #     phoneNumber = add_info("phone_number")
+    #     adhaar = add_info("adhaar")
+    #     religion = add_info("religion")
+    #     caste = add_info("caste")
+    #     category = add_info("category")
+    #     rte_student = add_info("rte")
+    #     relatives_in_school = add_info("relatives")
+    #     email = add_info("emailfield")
+    #     if rte_student == "on":
+    #         rte_ = True
+    #     else:
+    #         rte_ = False
+    #     Student.objects.create(insitution=insitution, student_code=student_code, fName = fName, sName = sName, fatherName = FatherName, motherName = MotherName, fee = fee, DOB = DOB,  student_present_class=presentClass, address = address, phoneNumber = phoneNumber, email=email, adhaar= adhaar, religion=religion, caste=caste, category=category, rte_student=rte_, relatives_in_school=relatives_in_school, state=str(state).replace('_', ' '), city=city)
+    #     return redirect('students:index')        
+    return render(request, 'student/addingstudent.html')
 
 
 def searchStudent(request):
-    school_user = UserRegistion.objects.get(user=request.user)
+    school_user = UserRegistion.objects.get(username=request.user.id)
     school_student = Student.objects.filter(insitution=school_user)
+    modeToSearch = request.POST.get("wayToSearch")
+    query = request.POST.get('query')
+    print(query)
+    result = str()
     if request.method == 'POST':
-        GET_DATA  = request.POST.get
-        student_code = GET_DATA('sCode')
-        fname = GET_DATA('fname')
-        sname = GET_DATA('sname')
-        student_class = GET_DATA('presentClass')
-        state = GET_DATA('state')
-        city = GET_DATA('city')
-        fathername = GET_DATA('fatherName')
-        religion = GET_DATA('religion')
-        category = GET_DATA('category')
-        rte_student =  GET_DATA('rte')
-        last_result = "NOT FOUND!"
-        
-        # if student_code:
-        #     last_result = school_student.filter(student_code=student_code)
-        # if fname:
-        #     last_result = school_student.filter(fName=fname)
-        # if sname:
-        #     last_result = school_student.filter(sName=sname)
-        # if student_class:
-        #     last_result = school_student.filter(student_present_class=student_class)
-        # if state:
-        #     last_result = school_student.filter(state=state)
-        # if city:
-        #     last_result = school_student.filter(city=city)
-        # if fathername:
-        #     last_result = school_student.filter(fatherName=fathername)
-        # if religion:
-        #     last_result = school_student.filter(religion=religion)
-        # if category:
-        #     last_result = school_student.filter(category=category)
-        # if rte_student == 'on':
-        #     last_result = school_student.filter(rte_student=True)
-        # else:
-        #     last_result = school_student.filter(rte_student=False)
-        # last_result = q(student_code_icontains=student_code)
+        if modeToSearch == "class" and query != None:
+            result = school_student.filter(q(student_present_class__icontains=query.upper()))
+        elif modeToSearch == "fname" and query != None:
+            result = school_student.filter(q(fName__icontains=query))
+        elif modeToSearch == "fatherName" and query != None:
+            result = school_student.filter(q(fatherName__icontains=query))
+        elif modeToSearch  == "city" and query != None:
+            result = school_student.filter(q(city__icontains=query))
+        elif modeToSearch == "religion" and query != None:
+            result = school_student.filter(q(religion__icontains=query.upper()))
+        elif modeToSearch == "category" and query != None:
+            result = school_student.filter(q(category__icontains=query.upper()))
+        elif modeToSearch == "rte":
+            result = school_student.filter(q(rte_student__icontains=True))
+        elif modeToSearch == "scode" and query != None:
+            result = school_student.filter(q(student_code__icontains=query))
+        else:
+            result = "no"
+        # print(dir(result))
+        print(result.exists())
+        return render(request, 'student/searchStudent.html', {'student':result})
 
-        last_result = school_student.filter(q(student_code__icontains=student_code) 
-        or q(fName__icontains=fname) 
-        or q(sName__icontains=sname) 
-        or q(student_present_class__icontains=student_class) 
-        or q(state__icontains=state) 
-        or q(city__icontains=city) 
-        or q(fatherName__icontains=fathername) 
-        or q(religion__icontains=religion) 
-        or q(category__icontains=category))
+    return render(request, 'student/searchStudent.html', {'student':result})
 
-        print(last_result, 'last_result')
-        # return render(request, 'student/searchStudent.html', {'last_result': last_result})
 
-    return render(request, 'student/searchStudent.html')
+
+def showing_all_by_classes(request, slug):
+    school_user = UserRegistion.objects.get(username=request.user.id)
+    school_student = Student.objects.filter(insitution=school_user)
+    print(school_student.filter(student_present_class=slug))
+    return render(request, 'student/all_student_by_class.html', {'school_student':school_student.filter(student_present_class=slug)})

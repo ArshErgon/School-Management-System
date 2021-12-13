@@ -30,11 +30,11 @@ def SignUp(request):
     error_message = str
 
     
-    if request.method == "POST" or "post":
+    if request.method == "POST":
         DATA = request.POST.get
         Fname = DATA('fname')
         Sname = DATA('sname')
-        insituite = DATA('insitiute') 
+        insituite = DATA('insitution') 
         city = DATA('city')
         state = DATA('state')
         zipCode = DATA('zip')
@@ -49,16 +49,20 @@ def SignUp(request):
             x = True
         else:
             x = False
+
+        print(state, email)
         
         # if UserRegistion.objects.filter(insitution=insituite):
-        if x:
-        # Insituition already Exists
-            error_message = "Insituition already registered looks like your insituition is already registered, forgotten password?"
-            print("error_message")
-            return render(request, 'USER/signUp.html', {'error':error_message})
-        else:
-            pass
+        #     error_message = "Insituition already registered looks like your insituition is already registered, forgotten password?"
+        #     return render(request, 'USER/signUp.html', {'error':error_message})
+        # else:
+        #     user = UserRegistion.objects.create(Fname=Fname, Sname=Sname, insitution=insituite, city=city, state=state, zipcode=zipCode, phone_number=phoneNumber,email=email, adhaar=adhaar, role=x, schoolCode=schoolCode, password=password)
+        #     new_user = ''
 
+        UserRegistion.objects.create(Fname=Fname, Sname=Sname, insitution=insituite, city=city, state=state, zipcode=zipCode, phone_number=phoneNumber,email=email, adhaar=adhaar, role=x, schoolCode=schoolCode, password=password)
+        new_user = User.objects.create_user(username=Fname, first_name=Fname, last_name=Fname, email=email, password=password, is_staff=x)
+        login(request, new_user)
+        return redirect('/')
 
     return render(request, 'USER/signUp.html')
 

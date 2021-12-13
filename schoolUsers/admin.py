@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import UserRegistion
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('user', 'insitution', 'city', 'phone_number')
+    list_display = ('Fname','insitution', 'city', 'phone_number')
 
 
 admin.site.register(UserRegistion, UserAdmin)
