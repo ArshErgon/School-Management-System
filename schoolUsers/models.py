@@ -28,11 +28,7 @@ class UserRegistion(models.Model):
     def __str__(self):
         return self.insitution
 
-    def save(self, *args, **kwargs):
-        if self.Fname:
-            self.username = self.Fname
-        super().save(*args, **kwargs)
 
-        
+
 
 
