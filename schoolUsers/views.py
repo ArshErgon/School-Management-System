@@ -5,14 +5,37 @@ from django.contrib import auth
 
 from .models import UserRegistion
 
+# Todo:
+#  Write commments to know what the hell I did?
+# 
+# 
+
 # Create your views here.
 def SignIn(request):
     error_message = str()
-    if request.POST or None:
-        username_user = request.POST.get("username")
-        password_user = request.POST.get("password")
+    username_user = request.POST.get("username")
+    password_user = request.POST.get("password")
+    mobile = request.META['HTTP_USER_AGENT']
+    if 'android' or 'iphone' in mobile.lower():
+        if request.method == 'POST':
+        
+            # user = User.objects.create_user(username, password)
+            USER_AUTHENTICATION = auth.authenticate(username=username_user, password=password_user)
+            # if you found the user in the database
+            if USER_AUTHENTICATION:
+                login(request, USER_AUTHENTICATION)
+                print("done")
+                return redirect('/')
+            else:
+                # Else return it with an alert 
+                error_message = "YOU ARE NOT REGISTERED!"
+                return render(request, 'mobile/user/signIn.html', {'error':error_message})
+                        
+        return render(request, 'mobile/user/signIn.html')
+    if request.method == "POST":
+        
         # user = User.objects.create_user(username, password)
-        USER_AUTHENTICATION = auth.authenticate(username=username_user, password=password_user)
+        USER_AUTHENTICATION = auth.authenticate(username=username_user)
         # if you found the user in the database
         if USER_AUTHENTICATION:
             login(request, USER_AUTHENTICATION)
@@ -28,37 +51,34 @@ def SignIn(request):
 
 def SignUp(request):
     error_message = str
-
+    DATA = request.POST.get
+    Fname = DATA('fname')
+    Sname = DATA('sname')
+    insituite = DATA('insitution') 
+    city = DATA('city')
+    state = DATA('state')
+    zipCode = DATA('zip')
+    phoneNumber = DATA('phone_number')
+    email = DATA('email')
+    adhaar = DATA('adhaar')
+    role = DATA('role')
+    schoolCode = DATA('schoolCode')
+    password = DATA('password')
+    if role == 'pri':
+        x = True
+    else:
+        x = False
     
-    if request.method == "POST":
-        DATA = request.POST.get
-        Fname = DATA('fname')
-        Sname = DATA('sname')
-        insituite = DATA('insitution') 
-        city = DATA('city')
-        state = DATA('state')
-        zipCode = DATA('zip')
-        phoneNumber = DATA('phone_number')
-        email = DATA('email')
-        adhaar = DATA('adhaar')
-        role = DATA('role')
-        schoolCode = DATA('schoolCode')
-        password = DATA('password')
+    if "android" or "iphone" in request.META['HTTP_USER_AGENT']:
+        if request.method == 'POST':
+            UserRegistion.objects.create(Fname=Fname, Sname=Sname, insitution=insituite, city=city, state=state, zipcode=zipCode, phone_number=phoneNumber,email=email, adhaar=adhaar, role=x, schoolCode=schoolCode, password=password)
+            new_user = User.objects.create_user(username=Fname, first_name=Fname, last_name=Fname, email=email, password=password, is_staff=x)
+            login(request, new_user)
+            return redirect('/')
+        return render(request, 'mobile/user/signUp.html')
 
-        if role == 'pri':
-            x = True
-        else:
-            x = False
 
-        print(state, email)
-        
-        # if UserRegistion.objects.filter(insitution=insituite):
-        #     error_message = "Insituition already registered looks like your insituition is already registered, forgotten password?"
-        #     return render(request, 'USER/signUp.html', {'error':error_message})
-        # else:
-        #     user = UserRegistion.objects.create(Fname=Fname, Sname=Sname, insitution=insituite, city=city, state=state, zipcode=zipCode, phone_number=phoneNumber,email=email, adhaar=adhaar, role=x, schoolCode=schoolCode, password=password)
-        #     new_user = ''
-
+    if request.method == "POST":       
         UserRegistion.objects.create(Fname=Fname, Sname=Sname, insitution=insituite, city=city, state=state, zipcode=zipCode, phone_number=phoneNumber,email=email, adhaar=adhaar, role=x, schoolCode=schoolCode, password=password)
         new_user = User.objects.create_user(username=Fname, first_name=Fname, last_name=Fname, email=email, password=password, is_staff=x)
         login(request, new_user)

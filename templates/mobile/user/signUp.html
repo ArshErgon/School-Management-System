@@ -1,9 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'mobile/baseMobile.html' %}
 {% block content %}
+
+
 
 <div style="margin:0px auto;text-align:center; margin-top:20px;">
     <h1>School Management System</h1>
 </div>
+
+<br><br><br>
+
 
 <div class="col-sm-6" style="margin:0px auto;">
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -24,11 +29,11 @@
     </div>
 </div>
 {% endif %}
-<div class="col-8" style="margin:0px auto;">
+<div class="col-8" style="margin:0px auto;background">
     <form class="row g-3" method="POST">{% csrf_token %}
         <div class="col-md-2">
           <label for="inputEmail4" class="form-label">First Name</label>
-          <input name="fname" type="text" class="form-control" id="inputEmail4"required>
+          <input name="fname" type="text" class="form-control" id="inputEmail4" required>
         </div>
         <div class="col-md-2">
           <label for="inputPassword4" class="form-label">Second Name</label>
@@ -84,7 +89,7 @@
       <option value="UT">Uttarakhand</option>
       <option value="WB">West Bengal</option>
     </select>
-        </div>
+    </div>
         <div class="col-md-2">
           <label for="inputZip" class="form-label">Zip</label>
           <input name="zip" type="text" class="form-control" id="inputZip"required>
@@ -92,7 +97,7 @@
         <div class="col-md-2">
             <label for="inputZip" class="form-label">Phone Number</label>
             <input name="phone_number" type="text" class="form-control" id="inputZip" maxlength="10" placeholder="+91"required>
-          </div>
+        </div>
           <div class="col-md-2">
             <label for="inputZip" class="form-label">Email</label>
             <input name="email" type="email" class="form-control" id="inputZip" placeholder="example@gmail.com"required>
@@ -103,7 +108,7 @@
           </div>
           <div class="col-md-3">
             <label for="inputState" class="form-label">Role</label>
-            <select name="role" id="inputState" class="form-select"required>
+            <select name="role" id="inputState" class="form-select">
               <option selected>Choose...</option>
               <option value="pri">Principle</option>
               <option value="mang">Manager</option>
@@ -111,21 +116,24 @@
           </div>
           <div class="col-md-3">
             <label for="inputZip" class="form-label">School Code</label>
-            <input name="schoolCode" type="text" class="form-control" id="inputZip"required>
+            <input name="schoolCode" type="text" class="form-control" id="inputZip" required>
           </div>
           <div class="col-md-3">
             <label for="inputZip" class="form-label">Password</label>
-            <input name="password" type="password" class="form-control" id="inputZip"required>
+            <input name="password" type="password" class="form-control" id="inputZip" required>
           </div>
         <div class="col-12">
           <center><button type="submit" class="btn btn-primary">Sign in</button></center>
         </div>
-      </form>
-      <div class="col-md-6">
-        <a href="{% url 'login' %}" <button type="submit" class="btn btn-danger">Already a user?</button></a>
+      </form><br>
+      <center><a href="{% url 'login' %}" <button type="submit" class="btn btn-danger">Already a user?</button></a></center>
       </div>
 <div>
 </div>
+<br><br><br><br>
 </div>
+
+
+
 
 {% endblock %}

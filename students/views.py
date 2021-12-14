@@ -14,6 +14,9 @@ from .models import Student
 # Create your views here.
 
 def homeView(request):
+    if 'android' in request.META['HTTP_USER_AGENT'].lower():
+        print('YES')
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('students:visitor'))
     else:
@@ -74,6 +77,10 @@ def all_student_display(request):
 
 
 def notAuthenticUser(request):
+    if "android" in request.META['HTTP_USER_AGENT'].lower():
+        print('andriod can work')
+    elif 'iphone' in request.META['HTTP_USER_AGENT'].lower():
+        print('iphone')
     return render(request, 'display.html')
 
 # Add slug here

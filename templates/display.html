@@ -1,14 +1,25 @@
  {% extends 'base.html' %} 
  {% block content %}
+<div style="margin-top:40px"></div>
+<div class="col-sm-12" style="margin:0px auto;">
+    <div class="col-sm-10" style="margin:0px auto;text-align:center;">
+        <h2>School Management System</h2>
+    </div>
+    <div class="container" style="margin:0px auto;margin-top: 40px;">
+        <li>A website which gives you the power to store and manage the information of students.</li>
+        <li>It sees you in two role, A Principle and A Manager.</li>
+        <li>A Principle is a SuperUser who can see what the manager is doing and how the student is performaring or a quick check on a student's documentS.</li>
+        <li>A Manager can edit, delete, and add students their are some sensitive information which manager can't see or edit.</li>
+        <li>It filter student by their code, First name, Father's name, religion, category and more.</li>
+    </div>
+</div>
+<br><br><br>
+<center><h5>Let's get started</h5></center>
 
-<h1>Who we are and what we do?</h1>
-All the images and gifs with small tutorials
-<p>Join Us</p>
-
-{{ request.user }}
-
-<a href="{% url 'new_sign' %}"><button class="btn btn-primary">Sign up</button></a>
-<a href="{% url 'login' %}"><button class="btn btn-primary">Login</button></a>
+<div class="container" style="text-align:center">
+<a href="{% url 'new_sign' %}"><button class="btn btn-primary" style="margin-right: 8px;">Sign up</button></a>
+<a href="{% url 'login' %}"><button class="btn btn-success">Login</button></a>
+</div>
 
  {% endblock %}
 
