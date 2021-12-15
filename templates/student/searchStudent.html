@@ -30,6 +30,7 @@
 <h3 style="text-align:center;margin-top:40px;font-size:2.7em">Search Results: <span style="color:red">{{ student|length }}</span></h3>
   <div class="col-lg-8" style="margin:40px auto;">
     <div class="col-md-12" style=";margin:1px auto;">
+      <div class="table-responsive">
       <table class="table table-hover">
           <thead>
             <tr>
@@ -39,9 +40,6 @@
               <th scope="col">Father's Name</th>
               <th scope="col">RTE</th>
               <th scope="col">Religion</th>           
-              <th scope="col">Caste</th>
-              <th scope="col">Category</th>
-
 
             </tr>
           </thead>
@@ -54,13 +52,11 @@
                 <td>{{ info.fatherName|capfirst }}</td>
                 <td>{{ info.rte_student }}</td>
                 <td>{{ info.religion }}</td>
-                <td>{{ info.caste|capfirst  }}</td>
-                <td>{{ info.category }}</td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
-            
+        </div>
     
   </div>
   {% endif %}

@@ -14,9 +14,6 @@ from .models import Student
 # Create your views here.
 
 def homeView(request):
-    if 'android' in request.META['HTTP_USER_AGENT'].lower():
-        print('YES')
-
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('students:visitor'))
     else:
@@ -139,38 +136,6 @@ def addStudent(request):
     print(username)
     school = UserRegistion.objects.filter(username=username)
     print(school, 'school')
-
-    # for i in school:
-    #     pass
-
-    # if request.method == 'POST':
-    #     add_info = request.POST.get
-    #     insitution = i.insitution
-    #     fName = add_info("fname")
-    #     sName = add_info("sname")
-    #     student_code = add_info("sCode")
-    #     FatherName = add_info("fatherName")
-    #     MotherName = add_info("motherName")
-    #     fee = add_info("fee")
-    #     DOB = add_info("dob")
-    #     presentClass = add_info("presentClass")
-    #     address = add_info("address")
-    #     state = add_info("state")
-    #     city = add_info("city")
-    #     phoneNumber = add_info("phone_number")
-    #     adhaar = add_info("adhaar")
-    #     religion = add_info("religion")
-    #     caste = add_info("caste")
-    #     category = add_info("category")
-    #     rte_student = add_info("rte")
-    #     relatives_in_school = add_info("relatives")
-    #     email = add_info("emailfield")
-    #     if rte_student == "on":
-    #         rte_ = True
-    #     else:
-    #         rte_ = False
-    #     Student.objects.create(insitution=insitution, student_code=student_code, fName = fName, sName = sName, fatherName = FatherName, motherName = MotherName, fee = fee, DOB = DOB,  student_present_class=presentClass, address = address, phoneNumber = phoneNumber, email=email, adhaar= adhaar, religion=religion, caste=caste, category=category, rte_student=rte_, relatives_in_school=relatives_in_school, state=str(state).replace('_', ' '), city=city)
-    #     return redirect('students:index')        
     return render(request, 'student/addingstudent.html')
 
 
@@ -213,3 +178,7 @@ def showing_all_by_classes(request, slug):
     school_student = Student.objects.filter(insitution=school_user)
     print(school_student.filter(student_present_class=slug))
     return render(request, 'student/all_student_by_class.html', {'school_student':school_student.filter(student_present_class=slug)})
+
+def error_404(request, exception):
+    data = {'name': exception}
+    return render(request, 'error_404.html', data)
